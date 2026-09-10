@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漢字・英語 学習ゲーム</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ホーム画面 -->
+<div id="screen-home" class="screen active">
+  <div class="home-container">
+    <h1 class="title">📚 学習ゲーム</h1>
+    <p class="subtitle">漢字・英語の力を試そう！</p>
+    <div class="mode-buttons">
+      <button class="mode-btn kanji-btn" onclick="selectMode('kanji')">
+        <span class="mode-icon">🈳</span>
+        <span class="mode-name">漢字モード</span>
+        <span class="mode-desc">漢字・熟語の読み方を答えよう</span>
+      </button>
+      <button class="mode-btn english-btn" onclick="selectMode('english')">
+        <span class="mode-icon">🔤</span>
+        <span class="mode-name">英語モード</span>
+        <span class="mode-desc">英単語の意味を日本語で答えよう</span>
+      </button>
+    </div>
+    <div class="session-score" id="session-score">今セッション：0問正解 / 0問</div>
+    <button class="howto-btn" onclick="showScreen('howto')">📊 あそびかた</button>
+  </div>
+</div>
+
+<!-- あそびかた画面 -->
+<div id="screen-howto" class="screen">
+  <div class="content-container">
+    <h2 class="screen-title">📊 あそびかた</h2>
+    <div class="howto-list">
+      <div class="howto-item"><span class="howto-num">①</span><div><strong>モードを選ぶ</strong><p>漢字モード・英語モードから選ぼう</p></div></div>
+      <div class="howto-item"><span class="howto-num">②</span><div><strong>レベルを選ぶ</strong><p>3級・2級・1級から選ぼう</p></div></div>
+      <div class="howto-item"><span class="howto-num">③</span><div><strong>答えを入力</strong><p>漢字はひらがな、英語は日本語で入力してね</p></div></div>
+      <div class="howto-item"><span class="howto-num">④</span><div><strong>Enterで決定</strong><p>キーボードのEnterか決定ボタンを押そう</p></div></div>
+      <div class="howto-item"><span class="howto-num">⑤</span><div><strong>10問チャレンジ</strong><p>全10問！何問正解できるかな？</p></div></div>
+    </div>
+    <button class="back-btn" onclick="showScreen('home')">🏠 ホームに戻る</button>
+  </div>
+</div>
+
+<!-- レベル選択画面 -->
+<div id="screen-level" class="screen">
+  <div class="content-container">
+    <h2 class="screen-title" id="level-title">レベルを選んでね</h2>
+    <p class="screen-subtitle" id="level-subtitle"></p>
+    <div class="level-buttons">
+      <button class="level-btn level-3" onclick="startGame('3級')">
+        <span class="level-name">3級</span>
+        <span class="level-desc">基本レベル</span>
+      </button>
+      <button class="level-btn level-2" onclick="startGame('2級')">
+        <span class="level-name">2級</span>
+        <span class="level-desc">中級レベル</span>
+      </button>
+      <button class="level-btn level-1" onclick="startGame('1級')">
+        <span class="level-name">1級</span>
+        <span class="level-desc">上級レベル</span>
+      </button>
+    </div>
+    <button class="back-btn" onclick="showScreen('home')">🏠 ホームに戻る</button>
+  </div>
+</div>
+
+<!-- ゲーム画面 -->
+<div id="screen-game" class="screen">
+  <div class="game-container">
+    <div class="game-header">
+      <div class="game-badge" id="game-badge"></div>
+      <div class="game-progress" id="game-progress">1 / 10</div>
+      <div class="game-score" id="game-score">スコア: 0</div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="question-wrap">
+      <div class="question-text" id="question-text"></div>
+      <div class="hint-text" id="hint-text"></div>
+    </div>
+    <div class="input-wrap">
+      <p class="input-label" id="input-label">ひらがなで入力してね</p>
+      <input type="text" id="answer-input" class="answer-input"
+             placeholder="答えを入力..." autocomplete="off"
+             onkeydown="if(event.key==='Enter') checkAnswer()">
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="game-btns">
+      <button class="submit-btn" id="submit-btn" onclick="checkAnswer()">決定</button>
+      <button class="next-btn hidden" id="next-btn" onclick="nextQuestion()">次の問題 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- 結果画面 -->
+<div id="screen-result" class="screen">
+  <div class="content-container">
+    <h2 class="screen-title">結果</h2>
+    <div class="result-badge" id="result-badge"></div>
+    <div class="result-score" id="result-score"></div>
+    <div class="result-rank" id="result-rank"></div>
+    <div class="wrong-section" id="wrong-section"></div>
+    <div class="result-btns">
+      <button class="retry-btn" id="retry-btn">もう一度</button>
+      <button class="change-level-btn" onclick="showScreen('level')">レベルを変える</button>
+      <button class="home-btn" onclick="showScreen('home')">🏠 ホーム画面に移動する</button>
+    </div>
+  </div>
+</div>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
